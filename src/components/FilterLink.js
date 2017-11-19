@@ -1,10 +1,11 @@
-import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 const FilterLink = ({ filter, children }) => (
   <Link
     to={filter === 'all' ? '' : filter}
-    activeStyle={{
+    activestyle={{
       textDecoration: 'none',
       color: 'black',
     }}

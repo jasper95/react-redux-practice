@@ -1,34 +1,13 @@
 import { normalize } from 'normalizr';
 import * as schema from './schema';
-import api from '../api';
+import * as api from '../api';
 import { getIsFetching } from '../reducers';
 
-export const fetchTodos = (filter) => (dispatch, getState) => {
-  if (getIsFetching(getState(), filter)) {
-    return Promise.resolve();
-  }
-
-  dispatch({
-    type: 'FETCH_TODOS_REQUEST',
+export const fetchTodos = (filter) => {
+  return {
     filter,
-  });
-
-  return api.fetchTodos(filter).then(
-    response => {
-      dispatch({
-        type: 'FETCH_TODOS_SUCCESS',
-        filter,
-        response: normalize(response, schema.arrayOfTodos),
-      });
-    },
-    error => {
-      dispatch({
-        type: 'FETCH_TODOS_FAILURE',
-        filter,
-        message: error.message || 'Something went wrong.',
-      });
-    }
-  );
+    type: 'FETCH_TODOS_REQUEST'
+  }
 };
 
 export const addTodo = (text) => (dispatch) =>
