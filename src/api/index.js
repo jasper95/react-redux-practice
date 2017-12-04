@@ -1,23 +1,5 @@
-// import axios from 'axios'
-
-// export default (method= 'GET', data, url) => {
-// 	let username = 'drumbi',
-// 		password = 'F0nch3rt0'
-	
-// 	return axios({
-// 		auth: {
-// 			username,
-// 			password
-// 		},
-// 		method,
-// 		data,
-// 		url
-// 	})
-// }
-import { v4 } from 'node-uuid';
-
-// This is a fake in-memory implementation of something
-// that would be implemented by calling a REST server.
+import axios from '../utils/axios'
+import v4 from 'node-uuid'
 
 const fakeDatabase = {
   todos: [{
@@ -38,8 +20,8 @@ const fakeDatabase = {
 const delay = (ms) =>
   new Promise(resolve => setTimeout(resolve, ms));
 
-export const fetchTodos = (filter) =>
-  delay(500).then(() => {
+export const fetchTodos = (filter) => {
+  return axios({}, '/todos').then(() => {
     switch (filter) {
       case 'all':
         return { response: fakeDatabase.todos };
@@ -51,6 +33,7 @@ export const fetchTodos = (filter) =>
         throw new Error(`Unknown filter: ${filter}`);
     }
   }).catch(error => ({ error }));
+}
 
 export const addTodo = (text) =>
   delay(500).then(() => {
